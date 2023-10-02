@@ -1,32 +1,63 @@
 package ru.netology.ObjectOrientedProgrammingAndDesign.radio;
 
 public class Radio {
-    private int currentRadioStationNumber;
-    private int currentVolume;
 
-    public void next() {
-        if (currentRadioStationNumber != 9) {
+    // Станции
+    private int currentVolume;  //текущий громкость
+    private int currentRadioStationNumber;//текущий номер радиостанции
+    private int maxStation;
+
+    public Radio() {
+        this.maxStation = 9;
+    }
+
+    public Radio(int stationsQuantity) {
+        this.maxStation = stationsQuantity - 1;
+
+    }
+
+    public int getCurrentRadioStationNumber() {
+        return currentRadioStationNumber;
+    }
+
+    public void next() {     //следующий
+        if (currentRadioStationNumber != maxStation) {  //
             currentRadioStationNumber++;
         } else {
             currentRadioStationNumber = 0;
         }
     }
 
-    public void prev() {
+    public void prev() {   //предыдущий
         if (currentRadioStationNumber != 0) {
             currentRadioStationNumber--;
         } else {
-            currentRadioStationNumber = 9;
+            currentRadioStationNumber = maxStation;
         }
     }
 
-    public void increaseVolume() {
+
+    public void setCurrentRadioStationNumber(int currentRadioStationNumber) {   //установите текущий номер радиостанции
+        if (currentRadioStationNumber < 0) {
+            return;
+        }
+        if (currentRadioStationNumber > maxStation) {
+            return;
+        }
+        this.currentRadioStationNumber = currentRadioStationNumber;
+    }
+
+
+    // Громкость
+
+
+    public void increaseVolume() {   //увеличьте громкость
         if (currentVolume < 100) {
             currentVolume = currentVolume + 1;
         }
     }
 
-    public void reduceVolume() {
+    public void reduceVolume() {   //уменьшите громкость
         if (currentVolume > 0) {
             currentVolume = currentVolume - 1;
         }
@@ -47,18 +78,5 @@ public class Radio {
         this.currentVolume = currentVolume;
     }
 
-    public int getCurrentRadioStationNumber() {
-        return currentRadioStationNumber;
-    }
-
-    public void setCurrentRadioStationNumber(int currentRadioStationNumber) {
-        if (currentRadioStationNumber < 0) {
-            return;
-        }
-        if (currentRadioStationNumber > 9) {
-            return;
-        }
-        this.currentRadioStationNumber = currentRadioStationNumber;
-    }
 
 }
