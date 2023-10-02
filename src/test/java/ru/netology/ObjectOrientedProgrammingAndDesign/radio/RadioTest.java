@@ -5,10 +5,28 @@ import org.junit.jupiter.api.Test;
 
 public class RadioTest {
     @Test
+    public void test() {
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(15);
+        int expected = 15;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void stationSelectionInsideStation() { // выброр станции в грацице
         Radio radio = new Radio();
         radio.setCurrentRadioStationNumber(5);
         int expected = 5;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void stationSelectionAboveMax20() { // выброр станции выше max
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(25);
+        int expected = 0;
         int actual = radio.getCurrentRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
@@ -25,6 +43,15 @@ public class RadioTest {
     @Test
     public void stationSelectionLessMin() { // выброр станции меньше min
         Radio radio = new Radio();
+        radio.setCurrentRadioStationNumber(-4);
+        int expected = 0;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void stationSelectionLessMin20() { // выброр станции меньше min
+        Radio radio = new Radio(20);
         radio.setCurrentRadioStationNumber(-4);
         int expected = 0;
         int actual = radio.getCurrentRadioStationNumber();
@@ -69,6 +96,15 @@ public class RadioTest {
     }
 
     @Test
+    public void stationSelectionLessMaxBoundary20() { // выброр станции
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(19);
+        int expected = 19;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void stationSelectionMaxBoundary() { // выброр станции 9
         Radio radio = new Radio();
         radio.setCurrentRadioStationNumber(9);
@@ -78,9 +114,27 @@ public class RadioTest {
     }
 
     @Test
+    public void stationSelectionMaxBoundary20() { // выброр станции
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(20);
+        int expected = 0;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void stationSelectionMoreMaxBoundary() { // выброр станции 10
         Radio radio = new Radio();
         radio.setCurrentRadioStationNumber(10);
+        int expected = 0;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void stationSelectionMoreMaxBoundary20() { // выброр станции
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(21);
         int expected = 0;
         int actual = radio.getCurrentRadioStationNumber();
         Assertions.assertEquals(expected, actual);
@@ -117,11 +171,31 @@ public class RadioTest {
     }
 
     @Test
+    public void switchingStationsForwardMaxMin20() { //переключение станции вперед
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(19);
+        radio.next();
+        int expected = 0;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
     public void switchingStationsBackMinMax() { //переключение станции назад c мин на мах
         Radio radio = new Radio();
         radio.setCurrentRadioStationNumber(0);
         radio.prev();
         int expected = 9;
+        int actual = radio.getCurrentRadioStationNumber();
+        Assertions.assertEquals(expected, actual);
+    }
+
+    @Test
+    public void switchingStationsBackMinMax20() { //переключение станции назад c мин на мах
+        Radio radio = new Radio(20);
+        radio.setCurrentRadioStationNumber(0);
+        radio.prev();
+        int expected = 19;
         int actual = radio.getCurrentRadioStationNumber();
         Assertions.assertEquals(expected, actual);
     }
